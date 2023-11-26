@@ -81,8 +81,7 @@ controller.showBlogs = async (req, res) => {
       req.query.page * 2,
       req.query.page * 2 + 2
     );
-  }
-  else {
+  } else {
     res.locals.pages = [];
     res.locals.page_arrow = {
       left: {
@@ -95,10 +94,11 @@ controller.showBlogs = async (req, res) => {
       },
     };
   }
+
   res.render("index");
 };
 
-controller.seachBlogs = async (req, res) => {
+controller.searchBlogs = async (req, res) => {
   res.locals.categories = await models.Category.findAll({
     attributes: ["name"],
     include: [{ model: models.Blog }],
@@ -109,28 +109,48 @@ controller.seachBlogs = async (req, res) => {
     include: [{ model: models.Comment }],
   });
 
-  const search = req.query.seach;
-  res.locals.blogs = res.locals.blogs.filter((e)=>{e.dataValues.title.indexOf(search) != -1});
+  const search = req.query.search;
+  res.locals.blogs = res.locals.blogs.filter((e) => {
+    return e.dataValues.title.indexOf(search) != -1;
+  });
+
+  console.log("\n\n\n\n");
+  console.log(res.locals.blogs);
+  console.log(search);
+  console.log("\n\n\n\n");
+
+  res.locals.pages = [];
+  for (let i = 0; i < res.locals.blogs.length / 2; i++) {
+    res.locals.pages.push({
+      page: i + 1,
+      link: addPageHref(req, i + 1),
+    });
+  }
+
+  if (req.query.page == undefined) {
+    req.query.page = 1;
+  }
 
   const last_page = res.locals.pages[res.locals.pages.length - 1].page;
-    console.log(last_page);
-    res.locals.page_arrow = {
-      left: {
-        link: addPageHref(req, Math.max(req.query.page - 1, 1)),
-        active: req.query.page == 1,
-      },
-      right: {
-        link: addPageHref(req, Math.min(req.query.page + 1, last_page)),
-        active: req.query.page == last_page,
-      },
-    };
+  res.locals.page_arrow = {
+    left: {
+      link: addPageHref(req, Math.max(req.query.page - 1, 1)),
+      active: req.query.page == 1,
+    },
+    right: {
+      link: addPageHref(req, Math.min(req.query.page + 1, last_page)),
+      active: req.query.page == last_page,
+    },
+  };  
 
-    req.query.page = req.query.page - 1;
-    res.locals.blogs = res.locals.blogs.slice(
-      req.query.page * 2,
-      req.query.page * 2 + 2
-    );
-}
+  req.query.page = req.query.page - 1;
+  res.locals.blogs = res.locals.blogs.slice(
+    req.query.page * 2,
+    req.query.page * 2 + 2
+  );
+
+  res.render("index");
+};
 
 controller.showDetails = async (req, res) => {
   let id = isNaN(req.params.id) ? 0 : parseInt(req.params.id);

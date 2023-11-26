@@ -1,8 +1,8 @@
 {
   "development": {
-    "username": "database_development_ndhx_user",
-    "password": "CJ5yCFn9XYrp66GtClMNnLnEbr0HFnLS",
-    "database": "database_development_ndhx",
+    "username": "postgres",
+    "password": "postgres",
+    "database": "database_development",
     "host": "127.0.0.1",
     "port": 5432,
     "dialect": "postgres",

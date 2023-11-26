@@ -13,7 +13,7 @@ let sequelize;
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
-  sequelize = new Sequelize("postgres://database_development_ndhx_user:CJ5yCFn9XYrp66GtClMNnLnEbr0HFnLS@dpg-clfbefmg1b2c73a0139g-a.oregon-postgres.render.com/database_development_ndhx?ssl=true", config);
+  sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
 fs
