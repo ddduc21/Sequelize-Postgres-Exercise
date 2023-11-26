@@ -1,0 +1,30 @@
+<div class="col-lg-4 col-md-5">
+  <div class="blog__sidebar">
+    <div class="blog__sidebar__search">
+      <form action="/blogs/search">
+        <input type="text" name="search" placeholder="Search..." />
+        <button type="submit"><span class="icon_search"></span></button>
+      </form>
+    </div>
+    <div class="blog__sidebar__item">
+      <h4>Categories</h4>
+      <ul>
+        <li><a href="/">All</a></li>
+        {{#each categories}}
+        {{#with dataValues}}
+        <li><a href="/blogs?category={{name}}">{{name}} ({{Blogs.length}})</a></li>
+        {{/with}}
+        {{/each}}
+      </ul>
+    </div>
+
+    <div class="blog__sidebar__item">
+      <h4>Search By Tags</h4>
+      <div class="blog__sidebar__item__tags">
+        {{#each tags}}
+        <a href="/blogs?tag={{dataValues.name}}">{{dataValues.name}}</a>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</div>
