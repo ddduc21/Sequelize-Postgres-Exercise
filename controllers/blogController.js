@@ -114,11 +114,6 @@ controller.searchBlogs = async (req, res) => {
     return e.dataValues.title.indexOf(search) != -1;
   });
 
-  console.log("\n\n\n\n");
-  console.log(res.locals.blogs);
-  console.log(search);
-  console.log("\n\n\n\n");
-
   res.locals.pages = [];
   for (let i = 0; i < res.locals.blogs.length / 2; i++) {
     res.locals.pages.push({
