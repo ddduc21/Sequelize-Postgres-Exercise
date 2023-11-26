@@ -3,7 +3,7 @@
     "username": "database_development_ndhx_user",
     "password": "CJ5yCFn9XYrp66GtClMNnLnEbr0HFnLS",
     "database": "database_development_ndhx",
-    "host": "dpg-clfbefmg1b2c73a0139g-a.oregon-postgres.render.com",
+    "host": "127.0.0.1",
     "port": 5432,
     "dialect": "postgres",
     "ssl": true
